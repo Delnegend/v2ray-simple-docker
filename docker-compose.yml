@@ -1,0 +1,19 @@
+services:
+    v2ray:
+        container_name: v2ray
+        restart: always
+        image: v2ray-alpine
+        pull_policy: never
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                - V2RAY_VERSION=5.29.0
+        ports:
+            - "8081:8081"
+        volumes:
+            - ./config.json:/config.json
+        dns:
+            - 1.1.1.1
+            - 1.0.0.1
+        command: /opt/v2ray run -c /config.json
